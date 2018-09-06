@@ -1,4 +1,3 @@
-/* --------requiring----------  */
 const express               = require('express');
 const app                   = express();
 const bodyParser            = require('body-parser');
@@ -13,7 +12,7 @@ const Camp                  = require('./models/campground');
 const Comment               = require('./models/comments');
 const seedDb                = require('./models/seeds');
 const User                  = require('./models/userModel');
-
+/*----------------Routes---------------*/
 const campRoute = require('./routes/campgrounds');
 const commentRoute = require('./routes/comments');
 const userRoute = require('./routes/users');
