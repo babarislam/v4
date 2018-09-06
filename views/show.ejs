@@ -1,0 +1,49 @@
+<% include partials/header %>
+
+  <div class="container">
+    <div class="jumbotron">  <div class="container">
+    <h1><%= campus.name %></h1>
+    <p>Here is some description of the Campground you are looking for.</p>
+    <p>Posted by: <%= campus.author.username %></p>
+    <p><a class="btn btn-primary btn-large" href="/campgrounds">Go Back to Campgrounds</a></p>
+    </div></div>
+
+    <figure class="figure campDescContainer">
+     <img class="img-fluid" src="<%=campus.image %>">
+      <figcaption class="figure-caption campDesc">
+        <div class="figure-header">
+          <h4><%= campus.name %></h4>
+          <h4 class="pricing">$<%= campus.price %>/night</h4>
+        </div>
+
+        <p><%= campus.description %></p>
+
+        <% if(currentUser && campus.author.id.equals(currentUser._id)) { %><div class="d-flex flex-row">
+        <a class="btn btn-primary btn-warning" href="/campgrounds/<%= campus._id %>/edit">Edit Details</a>
+        <form method="POST" action="/campgrounds/<%= campus._id %>?_method=DELETE">
+        <button type="button" class="btn btn-danger" style="margin-left: 15px;" type="submit">Delete</button>
+      </form></div>
+        <% } %>
+        </figcaption>
+    </figure>
+
+<div class="comments-section">
+
+
+<h3>Public Comments</h3>
+<div class="divider"></div>
+<% campus.comments.forEach((comment)=>{ %>
+  <h4><%= comment.author.username %></h4>
+  <p><%= comment.text %></p>
+  <% if(currentUser && comment.author.id.equals(currentUser._id)) { %><div class="d-flex flex-row">
+  <a href="/campgrounds/<%= campus._id %>/comments/<%= comment._id %>/edit" style="display: inline;" class="btn btn-warning btn-sm">
+    Edit Comment</a>
+  <form method="post" action="/campgrounds/<%= campus._id %>/comments/<%= comment._id %>?_method=DELETE">
+  <button style="margin-left: 10px;" class="btn btn-danger btn-sm">Delete Comment</button>
+</form></div> <% } %>
+<div class="divider"></div>
+<% }); %>
+<br/>
+<a href="/campgrounds/<%= campus._id %>/comments/new" class="btn btn-primary">Add a Comment</a>
+</div>
+  </div>
